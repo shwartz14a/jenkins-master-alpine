@@ -1,10 +1,7 @@
 # Version: 0.1
 
 FROM alpine:latest
-MAINTAINER Dmytro Chernetskyi <dchernetskiy@gmail.com>
-
-ARG image_version=0.1
-ENV image_version $image_version
+MAINTAINER Shwartz <shwartz14a@yahoo.com>
 
 ENV LANG en_US.utf8
 ENV ENV="/etc/profile"
@@ -20,8 +17,8 @@ ARG JENKINS_VOLUME=/srv/data/jenkins
 ARG JENKINS_PLUGDIR=/usr/share/jenkins/ref/plugins/
 ARG JENKINS_VERSION
 
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.121.1}
-ARG JENKINS_SHA=5bb075b81a3929ceada4e960049e37df5f15a1e3cfc9dc24d749858e70b48919
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.141}
+ARG JENKINS_SHA=dc43088811b0169df9cd23dc73c7ba41ec0470c46dcc514c181b0cc980b4c648
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
 ENV JENKINS_URL $JENKINS_URL
 ENV JENKINS_HOME $JENKINS_HOME
