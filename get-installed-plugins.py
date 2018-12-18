@@ -2,6 +2,7 @@
 
 import requests
 import os
+import json
 
 JENKINS_USER = "user"
 JENKINS_PASSWORD = "password"

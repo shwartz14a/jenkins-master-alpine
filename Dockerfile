@@ -1,4 +1,4 @@
-# Version: 0.1
+# Version: 0.5
 
 FROM alpine:latest
 MAINTAINER Shwartz <shwartz14a@yahoo.com>
