@@ -15,7 +15,6 @@ build:
 build-nc: 
 	docker build --no-cache -t $(IMAGE_NAME) .
 	
-# Docker push, create one for snapshot and production, sergii gives the repo names
 push: push-latest push-version ## push the `{version}` and `latest` tagged containers
 
 push-latest:  ## push the `latest` taged container

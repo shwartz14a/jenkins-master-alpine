@@ -1,16 +1,59 @@
 version: '2'
 
+networks:
+  jenkins:
+    external: false
+
 services:
   jenkins:
-    build: .
-    image: jenkins-master-alpine:2.156
-    container_name: jenkins-master
-    hostname: jenkins-master
+    build: ./jenkins-master-local/
+    image: jenkins-master-local:latest
+    container_name: jenkins-master-local
+    hostname: jenkins-master-local
     restart: always
     ports:
-      - "8080:8080"
+      - "80:8080"
       - "50000:50000"
+    networks:
+      - jenkins
     volumes:
-      - ./docker/volume:/var/jenkins_home:rw
+      - ./volumes/jenkins-master:/srv/jenkins_home:rw
     environment:
       - JAVA_OPTS="-Dmail.smtp.starttls.enable=true -Djava.awt.headless=true"
+
+  slave:
+    build: ./jenkins-swarm-slave-docker/
+    image: jenkins-swarm-slave:latest
+    container_name: jenkins-slave
+    command: -master http://jenkins-master-local:8080 -username user -password password -executors 1
+    hostname: jenkins-slave
+    restart: always
+    networks:
+      - jenkins
+
+#services:
+#  jenkins:
+#    build: ./jenkins-master/
+#    image: jenkins-master-alpine:2.156
+#    container_name: jenkins-master
+#    hostname: jenkins-master
+#    restart: always
+#    ports:
+#      - "8080:8080"
+#      - "50000:50000"
+#    networks:
+#      - jenkins
+#    volumes:
+#      - ./volumes/jenkins-master:/srv/jenkins_home:rw
+#    environment:
+#      - JAVA_OPTS="-Dmail.smtp.starttls.enable=true -Djava.awt.headless=true"
+
+#  slave:
+#    build: ./jenkins-swarm-slave-docker/
+#    image: jenkins-swarm-slave:latest
+#    container_name: jenkins-slave
+#    command: -master http://jenkins-master:8080 -username user -password password -executors 1
+#    hostname: jenkins-slave
+#    restart: always
+#    networks:
+#      - jenkins

@@ -4,17 +4,17 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
       vb.gui = true
-      vb.memory = "1024"
+      vb.memory = "2048"
+      vb.default_nic_type = "82543GC"
   end
 
   config.vm.box = "ubuntu/xenial64"
 
-  config.vm.define "docker-jenkins-master" do |master|
-    #master.vm.box = "express42/ubuntu-16.04"
-    #master.vm.provision "shell", inline: "/vagrant/something.sh"
+  config.vm.define "all-in-one" do |master|
     master.vm.network "private_network", type: "dhcp"
-    master.vm.hostname = "docker-jenkins-master"
+    master.vm.hostname = "all-in-one"
     master.vm.synced_folder "./jenkins-master", "/srv/jenkins-master"
+    master.vm.synced_folder "~/repo", "/srv/repo"
   end
 
 end
